@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -22,6 +23,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final EmailService emailService;
 
     public AuthenticationResponse register(RegisterRequest request) {
         User user;
@@ -94,8 +96,9 @@ public class AuthenticationService {
                 .build();
     }
     private void sendVerificationEmail(String email, String code) {
-        // логика отправки email с кодом
+        emailService.sendVerificationEmail(email, code);
     }
+
     public void verifyEmail(String code) {
         User user = repository.findByVerificationCode(code)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid code"));
