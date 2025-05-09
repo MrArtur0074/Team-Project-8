@@ -1,0 +1,251 @@
+.container {
+  margin-left: 300px;
+  padding: 3rem;
+}
+
+.container * {
+  background: none;
+}
+
+.company_name {
+  font-size: 2.35rem;
+  font-weight: 700;
+  background: var(--green-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/*  */
+
+.block_2 {
+  margin-top: 2rem;
+  background-color: #1a1e20;
+  padding: 30px;
+  border-radius: 8px;
+  color: #fff;
+  border: 2px solid #dadada6a;
+}
+
+.block_2 p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Стили для радио-кнопок */
+.block_2 label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+  background: #1e2224;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.block_2 label:hover {
+  background: #2b3033;
+}
+
+.block_2 input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #00ff99;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+}
+
+.block_2 input[type="radio"]:checked {
+  background-color: #00ff99;
+  border-color: #00ff99;
+}
+
+.block_2 input[type="radio"]:checked::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: #a4d6a8;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.input_text {
+  outline: none;
+  border-radius: 5px;
+  padding: 0.7rem 2rem;
+  border: 2px solid #35c66a90;
+  width: 80%;
+  font-size: 1rem;
+}
+
+.input_text::placeholder {
+  font-size: 1.1rem;
+  color: #fefefe3c;
+}
+
+.number_quest {
+  font-size: 1.1rem !important;
+}
+
+.btn_main {
+  background: linear-gradient(90deg, #237249, #35c66b);
+  background-size: 200% 100%;
+  transition: background-position 0.3s ease-in-out;
+  display: flex;
+  z-index: 3;
+  padding: 15px 60px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  z-index: 3;
+  border: none;
+  cursor: pointer;
+}
+
+.btn_main:hover {
+  background-position: 100% 0;
+}
+
+.btn_submit {
+  display: flex;
+  justify-content: end;
+  margin-top: 3rem;
+}
+
+@media (max-width: 1115px) {
+  .company_name {
+    font-size: 2rem;
+  }
+  .survey_name {
+    font-size: 1.2rem !important;
+  }
+
+  .btn_main {
+    padding: 8px 35px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .company_name {
+    font-size: 1.6rem;
+  }
+  .survey_name {
+    font-size: 1rem !important;
+  }
+  .container {
+    margin-left: 230px;
+    padding: 2rem;
+  }
+
+  .block_2 {
+    padding: 15px 20px;
+    margin-top: 1.2rem;
+  }
+
+  .number_quest {
+    font-size: 0.8rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .block_2 input[type="radio"] {
+    width: 12px;
+    height: 12px;
+  }
+
+  .block_2 label {
+    gap: 10px;
+    padding: 12px;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    background: #1e2224;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-size: 0.8rem;
+  }
+
+  .input_text {
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    border: 2px solid #35c66a90;
+    width: 80%;
+    font-size: 0.8rem;
+  }
+
+  .input_text::placeholder {
+    font-size: 0.8rem;
+    color: #fefefe3c;
+  }
+}
+
+@media (max-width: 740px) {
+  .container {
+    margin-left: 0;
+  }
+
+  .input_text {
+    width: 100%;
+  }
+}
+
+@media (max-width: 465px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  .btn_submit {
+    margin-top: 2rem;
+  }
+
+  ._block_2_17mgp_37 label {
+    padding: 2rem 1rem !important;
+  }
+
+  .btn_main {
+    padding: 8px 25px !important;
+    border-radius: 10px;
+    font-size: 1rem;
+  }
+
+  .block_2 label {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 390px) {
+  .container {
+    padding: 1.5rem;
+  }
+  .company_name {
+    font-size: 1.3rem;
+  }
+  .survey_name {
+    font-size: 0.9rem !important;
+  }
+  .btn_submit {
+    margin-top: 2rem;
+  }
+
+  ._block_2_17mgp_37 label {
+    padding: 2rem 1rem !important;
+  }
+
+  .btn_main {
+    padding: 8px 25px !important;
+    border-radius: 10px;
+    font-size: 1rem;
+  }
+
+  .block_2 label {
+    padding: 8px;
+  }
+}

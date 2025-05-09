@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  --black-bg: #121517;
+  --green-gradient: linear-gradient(90deg, #35c66b, #237249);
+  --white-main: #ffffff;
+  --grey-subtext: #bbb3b36e;
+}
+
+#root {
+  position: relative;
+  overflow-x: hidden;
+}
+/* #root {
+  background: none;
+} */
+
+* {
+  margin: 0;
+  padding: 0;
+  background-color: var(--black-bg);
+  color: var(--white-main);
+  font-family: "Montserrat", sans-serif;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+.container_wrapper {
+  padding: 0 120px;
+  margin: 0 auto;
+  max-width: 1700px;
+  background: none;
+}
+
+@media (max-width: 1200px) {
+  .container_wrapper {
+    padding: 0 60px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container_wrapper {
+    padding: 0 35px;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #35c66ab7, #237249af); /* Градиент */
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #50e388, #1f4d2e);
+}

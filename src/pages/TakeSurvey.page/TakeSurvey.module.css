@@ -1,0 +1,128 @@
+.title {
+  font-size: 1.7rem;
+}
+
+.wrapper_head {
+  margin-bottom: 2.5rem;
+}
+
+strong {
+  /* color: #afafaf; */
+}
+
+.description {
+  font-size: 1.3rem;
+  color: #aaaaaa;
+}
+
+.title_input {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #e1e1e1;
+}
+
+.title_input span {
+  color: #ffffff;
+}
+
+.question_up_side {
+  display: flex;
+  flex-direction: column;
+  background: none;
+}
+
+.radio_options * {
+  width: auto !important;
+  background: none !important;
+  margin: 0 !important;
+  min-height: none !important;
+  /* display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 1rem; */
+}
+
+.radio_option {
+  width: auto !important;
+  display: flex;
+  align-items: center;
+  border: 2px solid #8585853f !important;
+  margin-bottom: 0.5rem !important;
+  padding: 1rem 2rem;
+}
+
+.radio_container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem !important;
+  padding: 1rem 2rem;
+  border: 2px solid #8585853f;
+  cursor: pointer;
+  background: none;
+  border-radius: 1px;
+  transition: background 0.2s ease;
+}
+
+.radio_container:hover,
+.radio_container.selected {
+  background: #263445;
+}
+
+.radio_container input {
+  display: none;
+}
+
+.custom_radio {
+  width: 1.2rem !important;
+  height: 1.2rem;
+  border: 2px solid #36d399;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  margin-right: 0.8rem !important;
+  flex-shrink: 0;
+}
+
+.radio_container input:checked + .custom_radio::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.5rem !important;
+  height: 0.5rem;
+  background-color: #36d399;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.value_auth {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.custom_radio_label {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 0.8rem !important;
+  margin-left: 0.5rem !important;
+  cursor: pointer;
+}
+
+.error_message {
+  color: #ff4d4f;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+.input_error {
+  border-color: #ff4d4f !important;
+}
+
+.input_error:focus {
+  box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2) !important;
+}
