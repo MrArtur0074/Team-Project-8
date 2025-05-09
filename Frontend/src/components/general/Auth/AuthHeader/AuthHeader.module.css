@@ -1,0 +1,129 @@
+.progressContainer {
+  display: flex;
+  align-items: center;
+  background: #3a4044;
+  border-radius: 20px;
+  height: 80px;
+}
+
+.step {
+  display: flex;
+  padding: 1.5rem 3.7rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: #aaa;
+  border-radius: 50px 70px 70px 0px;
+  font-size: 14px;
+  background: linear-gradient(90deg, #3a4044, #2b3034);
+  z-index: 3;
+}
+
+#last_item {
+  border-radius: 30px 20px 0px 0px;
+}
+
+.stepNumber {
+  background: #ffffff9c;
+  color: #2b303400;
+  width: 30px;
+  height: 30px;
+  margin-right: 1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-weight: 800;
+}
+
+.stepText,
+.stepText_login {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+#active .stepNumber {
+  background-color: #ffffff;
+  color: #2fab60;
+}
+
+#active {
+  background: var(--green-gradient);
+  height: 100%;
+  border-radius: 18px 40px 40px 0;
+}
+
+#active .stepText {
+  color: #fff;
+}
+
+@media (max-width: 1350px) {
+  .stepText {
+    font-size: 1rem;
+  }
+
+  .stepNumber {
+    min-width: 35px !important;
+    min-height: 25px;
+  }
+}
+
+@media (max-width: 1075px) {
+  .progressContainer {
+    height: 65px;
+  }
+
+  .stepNumber {
+    min-width: 25px !important;
+    min-height: 25px;
+  }
+
+  .step {
+    padding: 0rem 1rem;
+  }
+}
+
+@media (max-width: 950px) {
+  .stepText {
+    font-size: 0.8rem;
+  }
+
+  .stepNumber {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .step {
+    padding: 0rem 1rem;
+  }
+}
+
+@media (max-width: 780px) {
+  .stepText {
+    display: none;
+  }
+}
+
+@media (max-width: 530px) {
+  .progressContainer {
+    height: 50px;
+  }
+}
+
+@media (max-width: 455px) {
+  /* .step {
+    margin-left: 0.1rem !important;
+  } */
+
+  .stepNumber {
+    width: 15px;
+    height: 15px;
+    margin-right: 0.8rem;
+    font-size: 0.7rem;
+  }
+}
