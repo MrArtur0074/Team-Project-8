@@ -1,30 +1,31 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import style from "./Sidebar.module.css";
 import img1 from "../../../assets/sidebar/img_sidebar1.svg";
-import img2 from "../../../assets/sidebar/img_sidebar2.svg";
 import img3 from "../../../assets/sidebar/img_sidebar3.svg";
-import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
-export default function Sidebar() {
-  // const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
+const Sidebar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
-  const chats = [{ name: "chat1" }, { name: "chat2" }, { name: "chat3" }];
+  const handleNavigation = (path: string) => {
+    console.log("Current path:", location.pathname); // Отладочный вывод
 
-  const chatRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (chatRef.current) {
-      chatRef.current.style.height = isOpen
-        ? `${chatRef.current.scrollHeight}px`
-        : "0px";
+    // Если мы на странице создания или прохождения опроса, генерируем событие
+    if (
+      location.pathname.includes("create-survey") ||
+      location.pathname.includes("take-survey") ||
+      location.pathname.includes("survey") // Добавляем более общую проверку
+    ) {
+      console.log("Survey page detected, showing alert"); // Отладочный вывод
+      const event = new CustomEvent("navigationAttempt", { detail: { path } });
+      window.dispatchEvent(event);
+    } else {
+      console.log("Normal page, using navigation"); // Отладочный вывод
+      navigate(path);
     }
-  }, [isOpen]);
-
-  // Указываем тип для параметра
-  // const handleChatClick = (chatName: string) => {
-  //   navigate(`/survey/${chatName}`);
-  // };
+  };
 
   return (
     <div className={style.container}>
@@ -37,46 +38,30 @@ export default function Sidebar() {
             <NavLink
               to="/dashboard"
               className={({ isActive }) => (isActive ? style.active : "")}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigation("/dashboard");
+              }}
             >
-              <img src={img1} alt="" /> Опросники
+              <img src={img1} alt="" /> {t("sidebar.surveys")}
             </NavLink>
-          </li>
-          <li onClick={() => setIsOpen(!isOpen)}>
-            <div className={style.chat_wrapper}>
-              {/* чаты ---------- */}
-              {/* <NavLink to="#">
-                <div className={style.li_wrap}>
-                  <img src={img2} alt="" /> Чаты
-                </div>
-              </NavLink> */}
-              {/* <div
-                ref={chatRef}
-                className={`${style.chat_container} ${isOpen ? style.open : ""}`}
-              >
-                {chats.map((chat) => (
-                  <NavLink
-                    key={chat.name}
-                    to={`/survey/${chat.name}`}
-                    className={({ isActive }) =>
-                      `${style.a_chats} ${isActive ? style.active : ""}`
-                    }
-                  >
-                    <p>{chat.name}</p>
-                  </NavLink>
-                ))}
-              </div> */}
-            </div>
           </li>
           <li>
             <NavLink
-              to="/settings"
+              to="/profile"
               className={({ isActive }) => (isActive ? style.active : "")}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigation("/profile");
+              }}
             >
-              <img src={img3} alt="" /> Профиль
+              <img src={img3} alt="" /> {t("sidebar.profile")}
             </NavLink>
           </li>
         </ul>
       </nav>
     </div>
   );
-}
+};
+
+export default Sidebar;

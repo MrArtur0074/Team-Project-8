@@ -1,11 +1,11 @@
 import glob_style from "../Dashboard.page/Dashboard.page.module.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import style from "../CreateSurvey.page/CreateSurvey.module.css";
 import style_take_surv from "./TakeSurvey.module.css";
-import { usePrompt } from "../../hooks/useNavigationBlocker";
-import { UserContext } from "../../App";
+import AlertModal from "../../components/general/AlertModal/AlertModal";
+import { useTranslation } from "react-i18next";
 
 interface Option {
   id: number;
@@ -16,7 +16,7 @@ interface Question {
   id: number;
   text: string;
   type: string; // TEXT или MULTIPLE_CHOICE
-  options?: Option[]; // Вот это используем вместо answers
+  options?: Option[];
 }
 
 interface Survey {
@@ -43,36 +43,54 @@ export default function TakeSurvey() {
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: number]: string;
   }>({});
-  // const [user, setUser] = useContext(UserContext);
+  const [showAlert, setShowAlert] = useState(false);
+  const [nextLocation, setNextLocation] = useState<string | null>(null);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const navigate = useNavigate();
-  const isFormDirty = true;
+  const { t } = useTranslation();
 
-  usePrompt(
-    isFormDirty,
-    "Вы уверены, что хотите уйти? Несохранённые изменения будут потеряны."
-  );
+  useEffect(() => {
+    const hasChanges =
+      answers.some((answer) => answer.content.trim() !== "") ||
+      Object.values(selectedOptions).some((option) => option.trim() !== "");
+    setHasUnsavedChanges(hasChanges);
+  }, [answers, selectedOptions]);
 
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      e.preventDefault();
-      e.returnValue = ""; // Это нужно оставить — чтобы браузер показал системный алерт
+      if (hasUnsavedChanges) {
+        e.preventDefault();
+        e.returnValue = "";
+      }
     };
-
+    const handleNavigationAttempt = (e: CustomEvent<{ path: string }>) => {
+      if (hasUnsavedChanges) {
+        setShowAlert(true);
+        setNextLocation(e.detail.path);
+      } else {
+        navigate(e.detail.path);
+      }
+    };
     window.addEventListener("beforeunload", handleBeforeUnload);
-
+    window.addEventListener(
+      "navigationAttempt",
+      handleNavigationAttempt as EventListener
+    );
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener(
+        "navigationAttempt",
+        handleNavigationAttempt as EventListener
+      );
     };
-  }, []);
+  }, [hasUnsavedChanges, navigate]);
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-
     if (!token) {
       console.error("Нет токена, доступ запрещён");
       return;
     }
-
     axios
       .get(`http://localhost:8080/api/v1/surveys/${id}`, {
         headers: {
@@ -87,11 +105,22 @@ export default function TakeSurvey() {
     questionId: number,
     content: string
   ): string | null => {
+    const question = survey?.questions.find((q) => q.id === questionId);
+    if (!question) return null;
+
+    if (question.type === "MULTIPLE_CHOICE") {
+      if (!content.trim()) {
+        return t("takeSurvey.emptyAnswer");
+      }
+      return null;
+    }
+
+    // Для текстовых вопросов
     if (!content.trim()) {
-      return "Ответ не может быть пустым";
+      return t("takeSurvey.emptyAnswer");
     }
     if (content.trim().length < 3) {
-      return "Ответ должен содержать минимум 3 символа";
+      return t("takeSurvey.minLength");
     }
     return null;
   };
@@ -102,7 +131,6 @@ export default function TakeSurvey() {
       ...prev,
       [questionId]: error || "",
     }));
-
     setAnswers((prevAnswers) => {
       const updatedAnswers = prevAnswers.filter(
         (answer) => answer.question_id !== questionId
@@ -122,10 +150,8 @@ export default function TakeSurvey() {
 
   const handleSubmit = () => {
     if (!survey) return;
-
     const newErrors: ValidationError = {};
     let hasErrors = false;
-
     survey.questions.forEach((question) => {
       const answer = answers.find((a) => a.question_id === question.id);
       if (!answer) {
@@ -133,46 +159,39 @@ export default function TakeSurvey() {
           question.type === "MULTIPLE_CHOICE" &&
           !selectedOptions[question.id]
         ) {
-          newErrors[question.id] = "Пожалуйста, выберите один из вариантов";
+          newErrors[question.id] = t("takeSurvey.emptyAnswer");
         } else {
-          newErrors[question.id] = "Ответ не может быть пустым";
+          newErrors[question.id] = t("takeSurvey.emptyAnswer");
         }
         hasErrors = true;
         return;
       }
-
       const error = validateAnswer(question.id, answer.content);
       if (error) {
         newErrors[question.id] = error;
         hasErrors = true;
       }
     });
-
     if (hasErrors) {
       setErrors(newErrors);
-      alert("Пожалуйста, исправьте ошибки в ответах перед отправкой.");
+      alert(t("takeSurvey.fixErrors"));
       return;
     }
-
     const token = localStorage.getItem("access_token");
     if (!token) {
       console.error("Нет токена для отправки ответов");
       return;
     }
-
     const formattedAnswers = answers
       .map((a) => {
         const question = survey.questions.find((q) => q.id === a.question_id);
-
         if (!question) return null;
-
         const base = {
           answerContent: a.content,
           question: {
             id: question.id,
           },
         };
-
         if (question.type === "MULTIPLE_CHOICE") {
           const selectedOption = question.options?.find(
             (opt) => opt.text === a.content
@@ -182,11 +201,9 @@ export default function TakeSurvey() {
             selectedOptionId: selectedOption?.id ?? null,
           };
         }
-
         return base;
       })
-      .filter(Boolean); // удаляет null
-
+      .filter(Boolean);
     axios
       .post(
         `http://localhost:8080/api/survey-responses/${survey?.id}`,
@@ -198,18 +215,15 @@ export default function TakeSurvey() {
         }
       )
       .then((response) => {
-        console.log("Ответы отправлены:", response.data);
+        setHasUnsavedChanges(false);
         navigate("/dashboard");
       })
       .catch((error) => {
-        console.error("Ошибка при отправке ответов:", error);
-        alert(
-          "Произошла ошибка при отправке ответов. Пожалуйста, попробуйте снова."
-        );
+        alert(t("takeSurvey.sendError"));
       });
   };
 
-  if (!survey) return <p>Загрузка...</p>;
+  if (!survey) return <p>{t("takeSurvey.loading")}</p>;
 
   return (
     <div>
@@ -217,13 +231,13 @@ export default function TakeSurvey() {
         <div id={style.container} style={{ marginBottom: "2rem" }}>
           <div className={style_take_surv.wrapper_head}>
             <h2 className={style_take_surv.title}>
-              <strong>Тема опросника: </strong> {survey.title}
+              <strong>{t("takeSurvey.surveyTitle")}: </strong> {survey.title}
             </h2>
             <p className={style_take_surv.description}>
-              <strong>Описание:</strong> {survey.description}
+              <strong>{t("takeSurvey.description")}:</strong>{" "}
+              {survey.description}
             </p>
           </div>
-
           <div className={style_take_surv.questions_container}>
             {survey.questions.map((q: Question, index) => (
               <div
@@ -234,18 +248,17 @@ export default function TakeSurvey() {
                 <div className={style_take_surv.question_up_side}>
                   <p className={style_take_surv.title_input}>
                     <span>
-                      Вопрос {index + 1} / {survey.questions.length}
+                      {t("takeSurvey.question")} {index + 1} /{" "}
+                      {survey.questions.length}
                     </span>
                   </p>
-
                   <p className={style_take_surv.question}>{q.text}</p>
                 </div>
-
                 {q.type === "TEXT" ? (
                   <div>
                     <input
                       type="text"
-                      placeholder="Введите ответ"
+                      placeholder={t("takeSurvey.enterAnswer")}
                       onChange={(e) => handleAnswerChange(q.id, e.target.value)}
                       className={errors[q.id] ? style.input_error : ""}
                     />
@@ -276,7 +289,6 @@ export default function TakeSurvey() {
                         </span>
                       </label>
                     ))}
-
                     {errors[q.id] && (
                       <p className={style_take_surv.error_message}>
                         {errors[q.id]}
@@ -284,17 +296,25 @@ export default function TakeSurvey() {
                     )}
                   </div>
                 ) : (
-                  <p>Тип вопроса не поддерживается</p>
+                  <p>{t("takeSurvey.unsupportedType")}</p>
                 )}
               </div>
             ))}
           </div>
-
           <button className={style.btn_success} onClick={handleSubmit}>
-            Отправить ответы
+            {t("takeSurvey.submit")}
           </button>
         </div>
       </div>
+      <AlertModal
+        isOpen={showAlert}
+        message={t("takeSurvey.leavePage")}
+        onConfirm={() => {
+          setShowAlert(false);
+          if (nextLocation) navigate(nextLocation);
+        }}
+        onCancel={() => setShowAlert(false)}
+      />
     </div>
   );
 }

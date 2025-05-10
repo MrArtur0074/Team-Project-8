@@ -1,0 +1,186 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "faq": "FAQ",
+    "reviews": "Reviews"
+  },
+  "footer": {
+    "links": "Links",
+    "navigation": "Navigation",
+    "contacts": "Contacts",
+    "aboutUs": "About Us",
+    "ourServices": "Our Services"
+  },
+  "header": {
+    "about": "About",
+    "reviews": "Reviews",
+    "contacts": "Contacts"
+  },
+  "banner": {
+    "alreadyAuth": "You are already authorized. Do you want to go to the dashboard?",
+    "yes": "Yes",
+    "no": "No",
+    "title": "Leave a review",
+    "anonimo": "Anonymously",
+    "subtitle": "Your voice matters! Share your thoughts safely and anonymously, and help the company get better.",
+    "register": "Register",
+    "login": "Login",
+    "dashboard": "Surveys"
+  },
+  "statsCounter": {
+    "companies": "Comp. in the System",
+    "goodReviews": "Good Reviews",
+    "activeUsers": "Active Users"
+  },
+  "reviews": {
+    "elon": {
+      "name": "Elon Musk",
+      "message": "I learned a lot about my employees and fired more than half."
+    },
+    "sadyr": {
+      "name": "Sadyr Japarov",
+      "message": "The app is simple but useful. The main thing is not to be afraid to leave honest feedback."
+    },
+    "said": {
+      "name": "Said Davlatov",
+      "message": "Fast and convenient, no need to go through a lot of bureaucracy to get your point across."
+    }
+  },
+  "analise": {
+    "title": "Analyze reviews and",
+    "titleSpan": "improve the service",
+    "info": "Your reviews generate real data! Track opinion trends, identify patterns, and make informed decisions."
+  },
+  "aboutus": {
+    "title": "About",
+    "titleSpan": "us",
+    "backend": "Back-end Developer",
+    "frontend": "Front-end Developer",
+    "marketing": "Content Marketer",
+    "design": "UX&UI Designer",
+    "names": {
+      "Арууке": "Aruuke",
+      "Тилекмат": "Tilekmat",
+      "Элдар": "Eldar",
+      "Арген": "Argen"
+    },
+    "surnames": {
+      "Аскатова": "Askatova",
+      "Ажыгулов": "Azhygulov",
+      "Мурхалидинов": "Murkhalidinov",
+      "Шамыров": "Shamyrov"
+    }
+  },
+  "dashboard": {
+    "loading": "Loading...",
+    "search": "Search",
+    "new": "New",
+    "old": "Old",
+    "soon": "Feature coming soon",
+    "notPassed": "Not passed",
+    "passed": "Passed",
+    "createSurvey": "Create survey",
+    "analytics": "General analytics",
+    "yourSurveys": "Your surveys",
+    "noName": "No name",
+    "notFound": "No results found for \"{{query}}\"",
+    "noSurveys": "Oops, no available surveys",
+    "confirmDelete": "Are you sure you want to delete the survey?",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "sidebar": {
+    "surveys": "Surveys",
+    "profile": "Profile"
+  },
+  "questionCard": {
+    "topic": "Survey topic",
+    "created": "Survey created",
+    "results": "Results",
+    "delete": "Delete",
+    "start": "Start survey"
+  },
+  "settings": {
+    "myProfile": "My Profile",
+    "username": "Username",
+    "role": "Role",
+    "managerCode": "Manager code",
+    "password": "Password",
+    "editData": "Edit data",
+    "logout": "Log out",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "passwordsDontMatch": "Passwords do not match",
+    "save": "Save",
+    "close": "Close"
+  },
+  "nopage": {
+    "notfound": "Page not found",
+    "back": "Back to home"
+  },
+  "alert": {
+    "yes": "Yes",
+    "no": "No"
+  },
+  "createSurvey": {
+    "loadingUser": "Loading user...",
+    "surveyTitle": "Survey title",
+    "enterSurveyTitle": "Enter survey title",
+    "description": "Description",
+    "enterDescription": "Enter description",
+    "questions": "Questions:",
+    "question": "Question",
+    "deleteQuestion": "Delete question",
+    "enterQuestion": "Enter question",
+    "questionType": "Question type",
+    "text": "Text",
+    "multipleChoice": "Multiple choice",
+    "option": "Option",
+    "removeOption": "Remove",
+    "addOption": "Add option",
+    "addQuestion": "Add question",
+    "saveSurvey": "Save survey",
+    "leavePage": "Are you sure you want to leave this page? Changes will not be saved.",
+    "titleAndQuestionRequired": "Please add a title and at least one question.",
+    "emptyQuestion": "Please fill in the text for question {{num}}.",
+    "minLength": "Question {{num}} must be at least 3 characters.",
+    "optionRequired": "Add at least one option for question {{num}}.",
+    "emptyTitle": "Please enter the survey title.",
+    "minTitleLength": "Survey title must be at least 3 characters.",
+    "emptyDescription": "Please enter the description.",
+    "minDescriptionLength": "Description must be at least 3 characters."
+  },
+  "takeSurvey": {
+    "loading": "Loading...",
+    "surveyTitle": "Survey title",
+    "description": "Description",
+    "question": "Question",
+    "enterAnswer": "Enter answer",
+    "emptyAnswer": "Answer cannot be empty",
+    "minLength": "Answer must be at least 3 characters",
+    "unsupportedType": "Question type not supported",
+    "submit": "Submit answers",
+    "leavePage": "Are you sure you want to leave this page? Your answers will not be saved."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "q1": "What is Anonimo?",
+    "a1": "Anonimo is a platform for anonymous feedback and corporate atmosphere analysis. It helps organizations get honest employee opinions through anonymous surveys, chats, and analytics, which contributes to improving internal communication and making informed management decisions.",
+    "q2": "How to start using the service?",
+    "a2": "To get started, register on the platform as a user or administrator. Administrators can create teams, launch surveys, and view analytics. Users can take surveys, participate in anonymous discussions, and share opinions without the risk of being identified.",
+    "q3": "What features are available on the platform?",
+    "a3": "The platform includes: anonymous surveys, survey templates, results analytics, analysis documents, participant and role management. Administrators can track overall dynamics, while employees can anonymously share their opinions.",
+    "q4": "How does Anonimo ensure anonymity?",
+    "a4": "We don't store personal data, don't link responses to specific users, and use randomization and aggregation technologies. All messages and responses go through a system that prevents personal identification.",
+    "q5": "How is data security ensured?",
+    "a5": "All data is transmitted and stored using modern encryption algorithms. We regularly conduct security checks and comply with information protection standards to ensure platform confidentiality and reliability.",
+    "q6": "Can I test Anonimo before purchasing?",
+    "a6": "Yes, you can use a free demo version. It includes basic features: creating one survey, limited number of participants, and access to basic analytics.",
+    "q7": "What tariffs and payment methods are available?",
+    "a7": "We have a free and several paid tariffs — depending on team size and required functionality. Payment can be made by bank card, electronic wallets, or cryptocurrency. Details are in the 'Pricing' section.",
+    "q8": "Can I cancel my subscription?",
+    "a8": "Yes, you can cancel your subscription at any time through your personal account. After cancellation, you can use the service until the end of the paid period. Data and survey history are preserved if you decide to return later."
+  }
+}

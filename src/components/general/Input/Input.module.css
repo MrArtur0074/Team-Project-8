@@ -1,0 +1,45 @@
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.label {
+  font-size: 0.9rem;
+  color: #8b9297;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #2b3034;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #237249;
+}
+
+.input::placeholder {
+  color: #8b9297;
+}
+
+.input.error {
+  border-color: #dc3545;
+}
+
+.helperText {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.errorText {
+  color: #dc3545;
+}

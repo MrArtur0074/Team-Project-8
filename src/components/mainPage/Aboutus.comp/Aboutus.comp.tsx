@@ -6,6 +6,7 @@ import eldar from "../../../assets/team_imgs/photo_2025-02-17_15-25-01.jpg";
 import tilek from "../../../assets/team_imgs/photo_2025-02-05_20-11-37.jpg";
 import aruuke from "../../../assets/team_imgs/photo_2025-03-18_19-14-06 1.svg";
 import argen from "../../../assets/team_imgs/photo_2025-02-19_22-27-09.jpg";
+import { useTranslation } from "react-i18next";
 
 interface TeamMember {
   name: string;
@@ -16,32 +17,33 @@ interface TeamMember {
 }
 
 export default function Aboutus() {
+  const { t } = useTranslation();
   const team: TeamMember[] = [
     {
-      name: "Арууке",
-      surname: "Аскатова",
-      position: "Бэк-энд разработчик",
+      name: t("aboutus.names.Арууке"),
+      surname: t("aboutus.surnames.Аскатова"),
+      position: t("aboutus.backend"),
       img: aruuke,
       id: "item_1",
     },
     {
-      name: "Тилекмат",
-      surname: "Ажыгулов",
-      position: "Фронт-энд разработчик",
+      name: t("aboutus.names.Тилекмат"),
+      surname: t("aboutus.surnames.Ажыгулов"),
+      position: t("aboutus.frontend"),
       img: tilek,
       id: "item_2",
     },
     {
-      name: "Элдар",
-      surname: "Мурхалидинов",
-      position: "Контент-маркетолог",
+      name: t("aboutus.names.Элдар"),
+      surname: t("aboutus.surnames.Мурхалидинов"),
+      position: t("aboutus.marketing"),
       img: eldar,
       id: "item_3",
     },
     {
-      name: "Арген",
-      surname: "Шамыров",
-      position: "UX&UI Дизайнер",
+      name: t("aboutus.names.Арген"),
+      surname: t("aboutus.surnames.Шамыров"),
+      position: t("aboutus.design"),
       img: argen,
       id: "item_4",
     },
@@ -80,7 +82,7 @@ export default function Aboutus() {
   return (
     <div className={style.container} id="about_us">
       <div className={style.title}>
-        О <span>нас</span>
+        {t("aboutus.title")} <span>{t("aboutus.titleSpan")}</span>
       </div>
       <div className={style.cards}>
         {team.map((member, index) => (

@@ -9,10 +9,11 @@ import Settings from "../pages/Settings.page/Settings.page";
 import RegisterRoot from "../pages/Auth.page/Register/ChooseAccount/RegisterRoot";
 import CreateSurvey from "../pages/CreateSurvey.page/CreateSurvey.page";
 import TakeSurvey from "../pages/TakeSurvey.page/TakeSurvey.page";
+import FAQ from "../pages/FAQ/FAQ";
 
 const sidebarRoutes = [
   { path: "/dashboard", element: <Dashboard /> },
-  { path: "/settings", element: <Settings /> },
+  { path: "/profile", element: <Settings /> },
   { path: "/survey/:id", element: <TakeSurvey /> },
   { path: "/create_survey", element: <CreateSurvey /> },
 ];
@@ -35,6 +36,10 @@ export const routers = createBrowserRouter([
   {
     path: "/login",
     element: <LoginForm />,
+  },
+  {
+    path: "/faq",
+    element: <FAQ />,
   },
   ...sidebarWrappedRoutes,
   {

@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import style from "./LoginForm.module.css";
 import "../../common.style.css";
 import AuthLayout from "../../../../components/general/Auth/AuthLayout/AuthLayout.comp";
 import style_auth from "../../../../components/general/Auth/AuthHeader/AuthHeader.module.css";
-import { useContext } from "react";
 import { AuthContext, UserContext } from "../../../../App";
 
 interface User {
@@ -22,8 +21,14 @@ export default function LoginForm() {
   const [commonError, setCommonError] = useState("");
   const navigate = useNavigate();
 
-  const [, setIsAuth] = useContext(AuthContext);
+  const [isAuth] = useContext(AuthContext);
   const [, setUserContext] = useContext(UserContext);
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/dashboard");
+    }
+  }, [isAuth, navigate]);
 
   const validate = () => {
     let isValid = true;

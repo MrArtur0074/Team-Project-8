@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../../App";
@@ -7,6 +7,7 @@ import style_survey from "./CreateSurvey.module.css";
 // import style_alert from "../../components/mainPage/Banner.comp/Banner.comp.module.css";
 import img_icon from "../../assets/common/icon (3).svg";
 import img_add from "../../assets/dashboard/Group 189.svg";
+import { useTranslation } from "react-i18next";
 
 const CreateSurvey = () => {
   const [title, setTitle] = useState("");
@@ -14,28 +15,69 @@ const CreateSurvey = () => {
   const [questions, setQuestions] = useState<any[]>([
     { type: "TEXT", text: "", choices: [] },
   ]);
-  // const [showAlert, setShowAlert] = useState(false);
-  // const [nextLocation, setNextLocation] = useState<string | null>(null);
+  const [showAlert, setShowAlert] = useState(false);
+  const [nextLocation, setNextLocation] = useState<string | null>(null);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const navigate = useNavigate();
   const [user] = useContext(UserContext);
+  const { t } = useTranslation();
+  // Ошибки для каждого вопроса
+  const [questionErrors, setQuestionErrors] = useState<string[]>([]);
+  // Ошибки для названия и описания
+  const [titleError, setTitleError] = useState<string>("");
+  const [descError, setDescError] = useState<string>("");
+
+  useEffect(() => {
+    const hasChanges =
+      title.trim() !== "" ||
+      description.trim() !== "" ||
+      questions.some(
+        (q) =>
+          q.text.trim() !== "" || q.choices.some((c: string) => c.trim() !== "")
+      );
+    setHasUnsavedChanges(hasChanges);
+  }, [title, description, questions]);
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (hasUnsavedChanges) {
+        e.preventDefault();
+        e.returnValue = "";
+      }
+    };
+
+    const handleNavigationAttempt = (e: CustomEvent<{ path: string }>) => {
+      if (hasUnsavedChanges) {
+        setShowAlert(true);
+        setNextLocation(e.detail.path);
+      } else {
+        navigate(e.detail.path);
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener(
+      "navigationAttempt",
+      handleNavigationAttempt as EventListener
+    );
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener(
+        "navigationAttempt",
+        handleNavigationAttempt as EventListener
+      );
+    };
+  }, [hasUnsavedChanges, navigate]);
 
   if (!user || Object.keys(user).length === 0) {
-    return <div>Загрузка пользователя...</div>;
+    return <div>{t("createSurvey.loadingUser")}</div>;
   }
 
   const handleAddQuestion = () => {
     const newQuestion = { type: "TEXT", text: "", choices: [] };
     setQuestions([...questions, newQuestion]);
   };
-
-  // const handleNavigateAway = (url: string) => {
-  //   if (questions.length > 0 || title || description) {
-  //     setShowAlert(true);
-  //     setNextLocation(url);
-  //   } else {
-  //     navigate(url);
-  //   }
-  // };
 
   const handleQuestionTypeChange = (index: number, type: string) => {
     const updated = [...questions];
@@ -56,6 +98,17 @@ const CreateSurvey = () => {
     const updated = [...questions];
     updated[index].text = text;
     setQuestions(updated);
+
+    // Валидация при вводе
+    let error = "";
+    if (!text.trim()) {
+      error = t("createSurvey.emptyQuestion", { num: index + 1 });
+    } else if (text.trim().length < 3) {
+      error = t("createSurvey.minLength", { num: index + 1 });
+    }
+    const newErrors = [...questionErrors];
+    newErrors[index] = error;
+    setQuestionErrors(newErrors);
   };
 
   const handleChoiceChange = (qIdx: number, cIdx: number, value: string) => {
@@ -76,25 +129,50 @@ const CreateSurvey = () => {
     setQuestions(updated);
   };
 
+  const handleTitleChange = (value: string) => {
+    setTitle(value);
+    let error = "";
+    if (!value.trim()) {
+      error = t("createSurvey.emptyTitle");
+    } else if (value.trim().length < 3) {
+      error = t("createSurvey.minTitleLength");
+    }
+    setTitleError(error);
+  };
+
+  const handleDescriptionChange = (value: string) => {
+    setDescription(value);
+    let error = "";
+    if (!value.trim()) {
+      error = t("createSurvey.emptyDescription");
+    } else if (value.trim().length < 3) {
+      error = t("createSurvey.minDescriptionLength");
+    }
+    setDescError(error);
+  };
+
   const handleSaveSurvey = () => {
     if (!user.username) return console.error("Нет пользователя");
 
     if (!title.trim() || questions.length === 0) {
-      alert("Пожалуйста, добавьте название и хотя бы один вопрос.");
+      alert(t("createSurvey.titleAndQuestionRequired"));
       return;
     }
 
     for (let i = 0; i < questions.length; i++) {
       if (!questions[i].text.trim()) {
-        alert(`Пожалуйста, заполните текст для вопроса ${i + 1}`);
+        alert(t("createSurvey.emptyQuestion", { num: i + 1 }));
         return;
       }
-
+      if (questions[i].text.trim().length < 3) {
+        alert(t("createSurvey.minLength", { num: i + 1 }));
+        return;
+      }
       if (
         questions[i].type === "MULTIPLE_CHOICE" &&
         questions[i].choices.filter((c: string) => c.trim() !== "").length === 0
       ) {
-        alert(`Добавьте хотя бы один вариант ответа для вопроса ${i + 1}`);
+        alert(t("createSurvey.optionRequired", { num: i + 1 }));
         return;
       }
     }
@@ -122,7 +200,10 @@ const CreateSurvey = () => {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       })
-      .then(() => navigate("/dashboard"))
+      .then(() => {
+        setHasUnsavedChanges(false);
+        navigate("/dashboard");
+      })
       .then(() => console.log(surveyData))
       .catch((err) => console.error("Ошибка:", err));
   };
@@ -131,55 +212,68 @@ const CreateSurvey = () => {
     <div className={style.container}>
       <div className="survey-container" id={style_survey.container}>
         <div>
-          <h3>Тема опросника</h3>
+          <h3>{t("createSurvey.surveyTitle")}</h3>
           <input
             className="input"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Введите название опросника"
+            onChange={(e) => handleTitleChange(e.target.value)}
+            placeholder={t("createSurvey.enterSurveyTitle")}
           />
+          {titleError && (
+            <p style={{ color: "#ff4d4f", marginTop: 4 }}>{titleError}</p>
+          )}
         </div>
         <div>
-          <h3>Описание</h3>
+          <h3>{t("createSurvey.description")}</h3>
           <textarea
             className="textarea"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Введите описание"
+            onChange={(e) => handleDescriptionChange(e.target.value)}
+            placeholder={t("createSurvey.enterDescription")}
           />
+          {descError && (
+            <p style={{ color: "#ff4d4f", marginTop: 4 }}>{descError}</p>
+          )}
         </div>
 
-        <h2>Вопросы:</h2>
+        <h2>{t("createSurvey.questions")}</h2>
         <div className={style_survey.block}>
           {questions.map((q, i) => (
             <div className={style_survey.question_box} key={i}>
               <div>
                 <div className={style_survey.head_survey}>
-                  <label>{`Вопрос ${i + 1}`}</label>
+                  <label>{`${t("createSurvey.question")} ${i + 1}`}</label>
                   <button
                     className={style_survey.btn_secondary}
                     onClick={() => handleRemoveQuestion(i)}
                   >
-                    Удалить вопрос
+                    {t("createSurvey.deleteQuestion")}
                   </button>
                 </div>
                 <input
                   className="input"
                   value={q.text}
                   onChange={(e) => handleQuestionTextChange(i, e.target.value)}
-                  placeholder="Введите вопрос"
+                  placeholder={t("createSurvey.enterQuestion")}
                 />
+                {questionErrors[i] && (
+                  <p style={{ color: "#ff4d4f", marginTop: 4 }}>
+                    {questionErrors[i]}
+                  </p>
+                )}
               </div>
               <div>
-                <label>Тип вопроса</label>
+                <label>{t("createSurvey.questionType")}</label>
                 <select
                   className={style_survey.select}
                   style={{ background: "none" }}
                   value={q.type}
                   onChange={(e) => handleQuestionTypeChange(i, e.target.value)}
                 >
-                  <option value="TEXT">Текст</option>
-                  <option value="MULTIPLE_CHOICE">Множественный выбор</option>
+                  <option value="TEXT">{t("createSurvey.text")}</option>
+                  <option value="MULTIPLE_CHOICE">
+                    {t("createSurvey.multipleChoice")}
+                  </option>
                 </select>
               </div>
               {q.type === "MULTIPLE_CHOICE" && (
@@ -190,7 +284,7 @@ const CreateSurvey = () => {
                       <input
                         className={style_survey.input}
                         value={c}
-                        placeholder={`Вариант ${j + 1}`}
+                        placeholder={`${t("createSurvey.option")} ${j + 1}`}
                         onChange={(e) =>
                           handleChoiceChange(i, j, e.target.value)
                         }
@@ -200,7 +294,7 @@ const CreateSurvey = () => {
                         style={{ marginLeft: "8px" }}
                         onClick={() => handleRemoveChoice(i, j)}
                       >
-                        Убрать
+                        {t("createSurvey.removeOption")}
                       </button>
                     </div>
                   ))}
@@ -209,7 +303,7 @@ const CreateSurvey = () => {
                     className={style_survey.btn_add_option}
                     onClick={() => handleAddChoice(i)}
                   >
-                    Добавить вариант
+                    {t("createSurvey.addOption")}
                     <img src={img_add} alt="" />
                   </div>
                 </div>
@@ -223,13 +317,13 @@ const CreateSurvey = () => {
             className={style_survey.btn_primary_add_survey}
             onClick={handleAddQuestion}
           >
-            Добавить вопрос
+            {t("createSurvey.addQuestion")}
           </button>
           <button
             className={style_survey.btn_success}
             onClick={handleSaveSurvey}
           >
-            Сохранить опрос
+            {t("createSurvey.saveSurvey")}
           </button>
         </div>
       </div>
@@ -252,6 +346,27 @@ const CreateSurvey = () => {
           </div>
         </div>
       )} */}
+
+      {showAlert && (
+        <div className={style_survey.alert_modal}>
+          <div className={style_survey.alert_box}>
+            <p>{t("createSurvey.leavePage")}</p>
+            <div className={style_survey.alert_buttons}>
+              <button
+                onClick={() => {
+                  setShowAlert(false);
+                  if (nextLocation) navigate(nextLocation);
+                }}
+              >
+                {t("alert.yes")}
+              </button>
+              <button onClick={() => setShowAlert(false)}>
+                {t("alert.no")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

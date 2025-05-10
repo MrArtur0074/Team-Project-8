@@ -1,11 +1,14 @@
 import { NavLink } from "react-router-dom";
 import style from "./Header.comp.module.css";
+import { LanguageSwitcher } from "../LanguageSwitcher/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 export default function Header() {
+  const { t } = useTranslation();
   const btns = [
-    { value: "О нас", link: "/", direction: "about_us" },
-    { value: "Отзывы", link: "/", direction: "otzyv" },
-    { value: "Контакты", link: "/", direction: "contacts" },
+    { value: t("header.about"), link: "/", direction: "about_us" },
+    { value: t("header.reviews"), link: "/", direction: "otzyv" },
+    { value: t("header.contacts"), link: "/", direction: "contacts" },
   ];
 
   const scrollToSection = (id: string) => {
@@ -22,21 +25,24 @@ export default function Header() {
             <a href="/">Anonimo</a>
           </div>
           <div className={style.nav}>
-            {btns.map((item) => (
-              <div
-                className={style.item}
-                key={item.link}
-                onClick={() => scrollToSection(item.direction)}
-              >
-                <NavLink
-                  to={item.link}
-                  id={style.btn}
-                  style={{ background: "none" }}
+            <div style={{ background: "none", display: "flex" }}>
+              {btns.map((item) => (
+                <div
+                  className={style.item}
+                  key={item.direction}
+                  onClick={() => scrollToSection(item.direction)}
                 >
-                  {item.value}
-                </NavLink>
-              </div>
-            ))}
+                  <NavLink
+                    to={item.link}
+                    id={style.btn}
+                    style={{ background: "none" }}
+                  >
+                    {item.value}
+                  </NavLink>
+                </div>
+              ))}
+            </div>
+            <LanguageSwitcher />
           </div>
         </div>
       </div>

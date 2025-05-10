@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AuthLayout from "../../../../components/general/Auth/AuthLayout/AuthLayout.comp";
@@ -7,6 +7,7 @@ import StepIndicator from "../../../../components/general/Register/StepIndicator
 import RoleSelector from "../../../../components/general/Register/RoleSelector.comp";
 import "../../common.style.css";
 import style from "./ChooseAccount.module.css";
+import { UserContext, AuthContext } from "../../../../App";
 
 export default function RegisterRoot() {
   const navigate = useNavigate();
@@ -20,6 +21,14 @@ export default function RegisterRoot() {
   const [validateForm, setValidateForm] = useState<() => boolean>(
     () => () => true
   );
+  const [, setUserContext] = useContext(UserContext);
+  const [isAuth, setIsAuth] = useContext(AuthContext);
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/dashboard");
+    }
+  }, [isAuth, navigate]);
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
@@ -58,6 +67,8 @@ export default function RegisterRoot() {
       );
 
       localStorage.setItem("user", JSON.stringify(userResponse.data));
+      setUserContext(userResponse.data);
+      setIsAuth(true);
       console.log("Пользователь сохранен:", localStorage.getItem("user"));
       navigate("/dashboard");
     } catch (err) {

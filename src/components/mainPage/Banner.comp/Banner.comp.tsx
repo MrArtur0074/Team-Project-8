@@ -3,13 +3,15 @@ import { NavLink, useNavigate } from "react-router-dom";
 import StatsCounter from "../CounterBanner/StatsCounter.comp";
 import style from "./Banner.comp.module.css";
 import bg from "../../../assets/main_page/anonimo_bg.svg";
-import line from "../../../assets/main_page/LineBG.svg";
+// import line from "../../../assets/main_page/LineBG.svg";
 import { AuthContext } from "../../../App";
+import { useTranslation } from "react-i18next";
 
 export default function Banner() {
   const [showAlert, setShowAlert] = useState(false);
   const [isAuth] = useContext(AuthContext);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleButtonClick = (
     e: React.MouseEvent<HTMLAnchorElement>, // Типизация события
@@ -28,22 +30,23 @@ export default function Banner() {
       {showAlert && (
         <div className={style.alert_modal}>
           <div className={style.alert_box}>
-            <p>Вы уже авторизованы. Хотите перейти на дешборд?</p>
-            <button onClick={() => navigate("/dashboard")}>Да</button>
-            <button onClick={() => setShowAlert(false)}>Нет</button>
+            <p>{t("banner.alreadyAuth")}</p>
+            <button onClick={() => navigate("/dashboard")}>
+              {t("banner.yes")}
+            </button>
+            <button onClick={() => setShowAlert(false)}>
+              {t("banner.no")}
+            </button>
           </div>
         </div>
       )}
       <div className={style.component}>
         <div className={style.left_side}>
           <div className={style.title}>
-            Оставьте отзыв <br />
-            <span>Анонимно</span>
+            {t("banner.title")} <br />
+            <span>{t("banner.anonimo")}</span>
           </div>
-          <div className={style.info}>
-            Ваш голос имеет значение! Безопасно делитесь своими мыслями,
-            оставаясь анонимными, и помогайте компании становиться лучше.
-          </div>
+          <div className={style.info}>{t("banner.subtitle")}</div>
           <div className={style.btns}>
             {isAuth ? (
               <NavLink
@@ -55,7 +58,7 @@ export default function Banner() {
                   background: "none",
                 }}
               >
-                <div className={style.btn_reg}>Опросники</div>
+                <div className={style.btn_reg}>{t("banner.dashboard")}</div>
               </NavLink>
             ) : (
               <NavLink
@@ -68,7 +71,7 @@ export default function Banner() {
                   background: "none",
                 }}
               >
-                <div className={style.btn_reg}>Регистрация</div>
+                <div className={style.btn_reg}>{t("banner.register")}</div>
               </NavLink>
             )}
 
@@ -83,7 +86,7 @@ export default function Banner() {
                   background: "none",
                 }}
               >
-                <div className={style.btn_aut}>Вход</div>
+                <div className={style.btn_aut}>{t("banner.login")}</div>
               </NavLink>
             )}
           </div>
