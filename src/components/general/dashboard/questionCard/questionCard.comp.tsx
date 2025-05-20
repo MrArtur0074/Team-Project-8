@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import style from "./questionCard.module.css";
 import { UserContext } from "../../../../App";
 import { useTranslation } from "react-i18next";
+import { NavLink } from "react-router-dom";
 
 interface DashboardProps {
   id: number;
@@ -43,11 +44,30 @@ const QuestionCard: React.FC<DashboardProps> = ({
             </div>
           </div>
           {userRole === "MANAGER" || userRole === "ADMIN" ? (
-            <div className={style.btns}>
-              <div className={style.btn}>{t("questionCard.results")}</div>
+            <div className={style.btns} style={{ marginTop: "1rem" }}>
+              <div
+                className={style.btn}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <NavLink
+                  to={`/analysis/${id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  {t("questionCard.results")}
+                </NavLink>
+              </div>
               <button
                 className={style.btn_delete}
                 onClick={() => onDelete?.(id)}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
                 {t("questionCard.delete")}
               </button>

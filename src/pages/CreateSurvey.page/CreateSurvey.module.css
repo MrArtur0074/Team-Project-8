@@ -269,3 +269,95 @@ textarea::placeholder {
 .alert_buttons button:last-child:hover {
   background-color: #33383c;
 }
+
+@media (max-width: 1000px) {
+  #container h2,
+  h3 {
+    font-size: 16px !important;
+  }
+
+  #container input,
+  #container textarea,
+  #container .select {
+    font-size: 14px !important;
+    padding: 10px 15px !important;
+    min-height: 40px !important;
+  }
+
+  .head_survey label {
+    font-size: 14px !important;
+  }
+
+  .btn_secondary,
+  .btn_del_answer {
+    font-size: 12px !important;
+  }
+
+  .btn_add_option {
+    font-size: 1rem !important;
+  }
+  .btn_add_option img {
+    width: 15px !important;
+  }
+}
+
+.btn_primary_add_survey {
+  font-size: 0.9rem !important;
+  padding: 10px 20px !important;
+}
+
+.btn_success {
+  font-size: 0.9rem !important;
+  padding: 10px 20px !important;
+}
+
+@media (max-width: 740px) {
+  #container {
+    padding: 0px 2rem !important;
+  }
+}
+
+@media (max-width: 500px) {
+  #container {
+    padding: 0px 1rem !important;
+  }
+
+  #container > div {
+    margin-bottom: 1rem !important;
+  }
+
+  .question_box {
+    padding: 15px 1rem !important;
+  }
+
+  .choices {
+    padding-left: 1rem !important;
+  }
+
+  .choices img {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 465px) {
+  #container {
+    padding: 0px 0rem !important;
+  }
+
+  .btn_primary_add_survey {
+    font-size: 0.7rem !important;
+    padding: 10px 20px !important;
+  }
+
+  .btn_success {
+    font-size: 0.7rem !important;
+    padding: 10px 20px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .actions {
+    flex-direction: column;
+  }
+}

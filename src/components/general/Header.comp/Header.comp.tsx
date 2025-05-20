@@ -25,7 +25,10 @@ export default function Header() {
             <a href="/">Anonimo</a>
           </div>
           <div className={style.nav}>
-            <div style={{ background: "none", display: "flex" }}>
+            <div
+              style={{ background: "none", display: "flex" }}
+              id={style.nav_btns}
+            >
               {btns.map((item) => (
                 <div
                   className={style.item}

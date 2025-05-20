@@ -44,7 +44,7 @@
 
 .item {
   font-size: 1.2rem;
-  margin-left: 6rem;
+  margin-left: 5rem;
 }
 
 #btn {
@@ -70,8 +70,8 @@
   left: 0;
 }
 
-@media (max-width: 830px) {
-  .nav {
+@media (max-width: 1090px) {
+  #nav_btns * {
     display: none;
   }
 }
@@ -85,5 +85,11 @@
 @media (max-width: 425px) {
   .logo a {
     font-size: 1.7rem !important;
+  }
+}
+
+@media (max-width: 375px) {
+  .logo a {
+    font-size: 1.5rem !important;
   }
 }

@@ -84,7 +84,7 @@ const Dashboard = () => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       axios
-        .get("http://localhost:8080/api/v1/surveys")
+        .get("http://16.171.3.5:8080/api/v1/surveys")
         .then((response) => {
           if (Array.isArray(response.data)) {
             setSurveys(response.data);
@@ -137,7 +137,7 @@ const Dashboard = () => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       axios
-        .delete(`http://localhost:8080/api/v1/surveys/${surveyToDelete}`)
+        .delete(`http://16.171.3.5:8080/api/v1/surveys/${surveyToDelete}`)
         .then(() => {
           setSurveys((prev) => prev.filter((s) => s.id !== surveyToDelete));
           setShowAlert(false);
@@ -206,7 +206,7 @@ const Dashboard = () => {
               <img src={img1_icon} alt="" />
             </div>
             <div>
-              <NavLink to="/analytics" className={style.btn_create_surv}>
+              <NavLink to="/feedback" className={style.btn_create_surv}>
                 {t("dashboard.analytics")}
               </NavLink>
               <img src={img2_icon} alt="" />
@@ -214,7 +214,9 @@ const Dashboard = () => {
           </div>
         ) : user.role === "USER" ? (
           <div className={style.head_dashboard_user}>
-            <h2>{t("dashboard.yourSurveys")}</h2>
+            <h3 style={{ marginBottom: "1rem" }}>
+              {t("dashboard.yourSurveys")}
+            </h3>
           </div>
         ) : null}
 

@@ -78,6 +78,10 @@
   border: none;
 }
 
+#back_btn {
+  margin: 1rem 0 0 2rem;
+}
+
 @media (max-width: 1000px) {
   .container {
     width: 80%;

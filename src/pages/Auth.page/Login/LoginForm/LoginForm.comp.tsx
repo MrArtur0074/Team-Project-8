@@ -5,7 +5,10 @@ import style from "./LoginForm.module.css";
 import "../../common.style.css";
 import AuthLayout from "../../../../components/general/Auth/AuthLayout/AuthLayout.comp";
 import style_auth from "../../../../components/general/Auth/AuthHeader/AuthHeader.module.css";
+import style_btn_back from "../../../FAQ/FAQ.module.css";
+
 import { AuthContext, UserContext } from "../../../../App";
+import { useTranslation } from "react-i18next";
 
 interface User {
   username: string;
@@ -13,7 +16,8 @@ interface User {
 }
 
 export default function LoginForm() {
-  const [user, setUser] = useState<User | null>(null);
+  const { t } = useTranslation();
+  const [, setUser] = useState<User | null>(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [usernameError, setUsernameError] = useState("");
@@ -21,7 +25,7 @@ export default function LoginForm() {
   const [commonError, setCommonError] = useState("");
   const navigate = useNavigate();
 
-  const [isAuth] = useContext(AuthContext);
+  const [isAuth, setIsAuth] = useContext(AuthContext);
   const [, setUserContext] = useContext(UserContext);
 
   useEffect(() => {
@@ -34,14 +38,14 @@ export default function LoginForm() {
     let isValid = true;
 
     if (!username.trim()) {
-      setUsernameError("Пожалуйста, введите юзернейм");
+      setUsernameError(t("login.usernameRequired"));
       isValid = false;
     } else {
       setUsernameError("");
     }
 
     if (!password.trim()) {
-      setPasswordError("Пожалуйста, введите пароль");
+      setPasswordError(t("login.passwordRequired"));
       isValid = false;
     } else {
       setPasswordError("");
@@ -58,52 +62,66 @@ export default function LoginForm() {
     try {
       setCommonError("");
       const authResponse = await axios.post(
-        "http://localhost:8080/api/v1/auth/authenticate",
+        "http://16.171.3.5:8080/api/v1/auth/authenticate",
         { username, password },
         { headers: { "Content-Type": "application/json" } }
       );
 
       const token = authResponse.data.token;
       localStorage.setItem("access_token", token);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-      const userResponse = await axios.get(
-        "http://localhost:8080/api/v1/users/me",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+      // Fetch all users and find the logged-in user
+      const usersResponse = await axios.get(
+        "http://16.171.3.5:8080/api/v1/users"
       );
-
-      const userData = userResponse.data;
-      setUser(userData);
-      setUserContext(userData);
-      setIsAuth(true);
-      navigate("/dashboard");
+      const users = usersResponse.data;
+      const user = users.find((u: any) => u.username === username);
+      if (user) {
+        localStorage.setItem("user_id", user.id);
+        localStorage.setItem("user", JSON.stringify(user));
+        setUser(user);
+        setUserContext(user);
+        setIsAuth(true);
+        navigate("/dashboard");
+      } else {
+        setCommonError("Пользователь не найден после входа");
+      }
     } catch (error) {
       console.error("Ошибка входа:", error);
-      setCommonError("Неверные данные. Попробуйте снова.");
+      setCommonError(t("login.error"));
     }
   };
 
   return (
     <div style={{ background: "none" }}>
+      <button
+        onClick={() => navigate("/")}
+        className={style_btn_back.backButton}
+        id={style.back_btn}
+      >
+        ←
+      </button>
       <AuthLayout
-        title="Авторизация"
+        title={t("login.title")}
         buttons={{
-          next: { text: "Войти", onClick: handleLogin },
-          prev: { link: "/register", text: "Вернуться" },
-          relink: { link: "/register", text: "Создать аккаунт" },
+          next: { text: t("login.login"), onClick: handleLogin },
+          prev: { link: "/register", text: t("login.back") },
+          relink: { link: "/register", text: t("login.createAccount") },
         }}
       >
         <div className="main">
           <div className={style_auth.progressContainer}>
             <div className={style_auth.step} id={style.active}>
-              <span className={style_auth.stepText_login}>Вход в систему</span>
+              <span className={style_auth.stepText_login}>
+                {t("login.enterAccount")}
+              </span>
             </div>
           </div>
 
           <div className="container_auth">
             <h3 className="step_auth" id="h3_auth">
-              Войдите в свой аккаунт
+              {t("login.enterAccount")}
             </h3>
           </div>
 
@@ -111,10 +129,10 @@ export default function LoginForm() {
             <div id={style.box_auth}>
               <div id={style.form_auth}>
                 <div>
-                  <label>Юзернейм</label>
+                  <label>{t("login.username")}</label>
                   <input
                     type="text"
-                    placeholder="Введите свой юзернейм"
+                    placeholder={t("login.usernamePlaceholder")}
                     value={username}
                     onChange={(e) => {
                       setUsername(e.target.value);
@@ -125,10 +143,10 @@ export default function LoginForm() {
                 </div>
 
                 <div>
-                  <label>Пароль</label>
+                  <label>{t("login.password")}</label>
                   <input
                     type="password"
-                    placeholder="Введите пароль"
+                    placeholder={t("login.passwordPlaceholder")}
                     value={password}
                     onChange={(e) => {
                       setPassword(e.target.value);
@@ -147,7 +165,7 @@ export default function LoginForm() {
 
               <div className={style.wrapp_button_auth}>
                 <button className={style.button_auth} onClick={handleLogin}>
-                  Войти
+                  {t("login.login")}
                 </button>
                 <div className={style.relink_btn}>
                   <a
@@ -155,7 +173,7 @@ export default function LoginForm() {
                     className={style.relink_btn}
                     style={{ background: "none", textAlign: "center" }}
                   >
-                    Все еще нет аккаунта?
+                    {t("login.noAccount")}
                   </a>
                 </div>
               </div>

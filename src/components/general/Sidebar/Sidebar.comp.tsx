@@ -1,6 +1,7 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import style from "./Sidebar.module.css";
 import img1 from "../../../assets/sidebar/img_sidebar1.svg";
+import img2 from "../../../assets/sidebar/img_sidebar2.svg";
 import img3 from "../../../assets/sidebar/img_sidebar3.svg";
 import { useTranslation } from "react-i18next";
 
@@ -12,7 +13,6 @@ const Sidebar = () => {
   const handleNavigation = (path: string) => {
     console.log("Current path:", location.pathname); // Отладочный вывод
 
-    // Если мы на странице создания или прохождения опроса, генерируем событие
     if (
       location.pathname.includes("create-survey") ||
       location.pathname.includes("take-survey") ||
@@ -44,6 +44,19 @@ const Sidebar = () => {
               }}
             >
               <img src={img1} alt="" /> {t("sidebar.surveys")}
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/feedback"
+              className={({ isActive }) => (isActive ? style.active : "")}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigation("/feedback");
+              }}
+            >
+              <img src={img2} alt="" />
+              {t("sidebar.feedback")}
             </NavLink>
           </li>
           <li>

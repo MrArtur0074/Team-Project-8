@@ -8,7 +8,7 @@ export function usePrompt(when: boolean, message: string) {
   useEffect(() => {
     if (!when) return;
 
-    const pushState = navigator.push;
+    // const originalPushState = navigator.push;
 
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.preventDefault();

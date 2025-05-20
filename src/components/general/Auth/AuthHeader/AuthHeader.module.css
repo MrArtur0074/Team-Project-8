@@ -113,6 +113,18 @@
   .progressContainer {
     height: 50px;
   }
+
+  /* .stepText_login {
+    font-size: 1rem;
+    text-align: center;
+  } */
+
+  /* .active {
+    font-size: 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  } */
 }
 
 @media (max-width: 455px) {

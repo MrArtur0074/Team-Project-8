@@ -74,11 +74,9 @@
 }
 
 .search_dashboard_input button {
-  /* background: none; */
   border: none;
   cursor: pointer;
   padding: 11px;
-  /* border: 1px solid #ccc; */
   background-color: #2b3034;
   margin-left: 10px;
   border-radius: 5px;
@@ -134,16 +132,127 @@
   background-color: #2b3034;
 }
 
+@media (max-width: 1300px) {
+  .head_dashboard {
+    padding: 2rem 2rem 2rem 2rem;
+  }
+  .btn_create_surv {
+    padding: 10px 30px;
+  }
+}
+
+@media (max-width: 1120px) {
+  .container {
+    padding: 1.8rem 1rem 0 1rem !important;
+  }
+
+  .head_dashboard {
+    padding: 1.5rem 1rem 1.5rem 1rem !important;
+  }
+
+  .head_dashboard img {
+    width: 25px;
+  }
+}
+
 @media (max-width: 1000px) {
   .container {
     margin-left: 230px;
-    padding: 1.8rem 2rem 0 2rem;
+    padding: 1.8rem 3rem 0 2rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .head_dashboard {
+    padding: 1rem !important;
+    border: 7px dashed #237249; /* Делаем границу прозрачной */
+    margin-bottom: 2rem;
+  }
+
+  .head_dashboard a {
+    font-size: 0.8rem !important;
+  }
+  .search_dashboard {
+    margin-bottom: 1rem;
+  }
+
+  .search_dashboard_input input {
+    width: 100%;
+    padding: 8px 15px;
+    background-color: #2b3034;
+    border-radius: 2px;
+    border: none;
+    font-size: 0.8rem;
+  }
+
+  .search_dashboard_input input::placeholder {
+    font-weight: 700;
+    font-size: 0.8rem;
+  }
+
+  .search_dashboard_input button {
+    padding: 11px;
+    border-radius: 2px;
+  }
+
+  .search_dashboard_input button img {
+    width: 13px;
+  }
+
+  .btns_search_dashboard {
+    gap: 10px;
+  }
+
+  .btns_search_dashboard button {
+    padding: 5px 15px;
+    border-radius: 2px;
+    font-size: 0.8rem;
+  }
+
+  .inputWrapper {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .head_dashboard img {
+    display: none !important;
   }
 }
 
 @media (max-width: 740px) {
   .container {
     margin-left: 0px;
+  }
+  .head_dashboard img {
+    display: block !important;
+  }
+}
+
+@media (max-width: 570px) {
+  .head_dashboard img {
+    display: none !important;
+  }
+}
+
+@media (max-width: 510px) {
+  .head_dashboard a {
+    padding: 10px 20px !important;
+    font-size: 0.7rem !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .head_dashboard {
+    padding: 0.7rem 0.7rem 0 0.7rem !important;
+    border: 4px dashed #237249;
+    flex-direction: column !important;
+  }
+
+  .btn_create_surv {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
   }
 }
 

@@ -195,7 +195,7 @@ const CreateSurvey = () => {
     console.log(surveyData);
 
     axios
-      .post("http://localhost:8080/api/v1/surveys", surveyData, {
+      .post("http://16.171.3.5:8080/api/v1/surveys", surveyData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },

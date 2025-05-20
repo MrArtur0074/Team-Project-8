@@ -82,3 +82,15 @@
   padding: 10px 20px;
   cursor: pointer;
 }
+
+@media (max-width: 1000px) {
+  .modal_content {
+    padding: 1.5rem 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal_content {
+    padding: 1rem;
+  }
+}

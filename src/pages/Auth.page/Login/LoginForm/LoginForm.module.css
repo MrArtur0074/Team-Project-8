@@ -62,6 +62,10 @@
   margin-top: 1rem;
 }
 
+#back_btn {
+  margin: 1rem 0 0 2rem;
+}
+
 @media (max-width: 900px) {
   #form_auth {
     display: flex;
@@ -105,11 +109,19 @@
   .relink_btn {
     font-size: 0.9rem;
   }
+
+  #active span {
+    font-size: 1rem !important;
+  }
 }
 
 @media (max-width: 400px) {
   #form_auth {
     margin: 0 1rem;
     width: 90%;
+  }
+
+  #active span {
+    font-size: 0.8rem !important;
   }
 }

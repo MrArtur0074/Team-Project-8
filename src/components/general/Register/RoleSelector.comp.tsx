@@ -1,5 +1,6 @@
 import style from "../../../pages/Auth.page/Register/ChooseAccount/ChooseAccount.module.css";
 import "../../../pages/Auth.page/common.style.css";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   selected: "MANAGER" | "USER";
@@ -7,6 +8,8 @@ type Props = {
 };
 
 export default function RoleSelector({ selected, setSelected }: Props) {
+  const { t } = useTranslation();
+
   return (
     <div className={style.container}>
       <label className={style.radio_container}>
@@ -18,7 +21,7 @@ export default function RoleSelector({ selected, setSelected }: Props) {
           onChange={() => setSelected("MANAGER")}
         />
         <span className={style.custom_radio}></span>
-        Администратор
+        {t("register.roleSelector.administrator")}
       </label>
       <label className={style.radio_container}>
         <input
@@ -29,7 +32,7 @@ export default function RoleSelector({ selected, setSelected }: Props) {
           onChange={() => setSelected("USER")}
         />
         <span className={style.custom_radio}></span>
-        Пользователь
+        {t("register.roleSelector.user")}
       </label>
     </div>
   );

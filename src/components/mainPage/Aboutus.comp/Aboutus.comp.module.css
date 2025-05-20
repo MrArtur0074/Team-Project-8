@@ -150,7 +150,7 @@
   }
 
   .title {
-    font-size: 4rem;
+    font-size: 3rem;
   }
 }
 
@@ -174,7 +174,7 @@
   }
 
   .title {
-    font-size: 4rem;
+    font-size: 3rem;
   }
 }
 
@@ -213,6 +213,9 @@
   #wrapper_info {
     width: 200px;
   }
+  .title {
+    font-size: 2.3rem;
+  }
 }
 
 @media (max-width: 400px) {
@@ -221,6 +224,9 @@
   }
   #wrapper_info {
     width: 170px;
+  }
+  .title {
+    font-size: 1.6rem !important;
   }
 }
 

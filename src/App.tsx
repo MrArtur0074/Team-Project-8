@@ -4,7 +4,7 @@ import "@mantine/charts/styles.css";
 import { RouterProvider } from "react-router-dom";
 import { routers } from "./app/routers.tsx";
 import { createTheme, MantineProvider } from "@mantine/core";
-import React, { useEffect, useState, createContext } from "react";
+import React, { useEffect, useState, createContext, useContext } from "react";
 import axios from "axios";
 import "./i18n/i18n.ts";
 
@@ -33,17 +33,25 @@ const App = () => {
     }
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    console.log(
+      "Установлен заголовок Authorization:",
+      axios.defaults.headers.common["Authorization"]
+    );
 
+    const id = localStorage.getItem("user_id");
     axios
-      .get("http://localhost:8080/api/v1/users/me")
+      // .get(`http://localhost:8080/api/v1/users/${id}`)
+      .get(`http://16.171.3.5:8080/api/v1/users/${id}`)
+
       .then((res) => {
+        console.log("Ответ /users/me:", res.data);
         setIsAuth(true);
         setUser(res.data);
       })
       .catch((error) => {
         console.error("Ошибка при получении профиля пользователя:", error);
         if (error.response?.status === 403) {
-          localStorage.removeItem("access_token"); // Удаляем недействительный токен
+          localStorage.removeItem("access_token");
           setIsAuth(false);
         }
       })

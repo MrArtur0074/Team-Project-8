@@ -92,7 +92,7 @@ export default function TakeSurvey() {
       return;
     }
     axios
-      .get(`http://localhost:8080/api/v1/surveys/${id}`, {
+      .get(`http://16.171.3.5:8080/api/v1/surveys/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -206,7 +206,7 @@ export default function TakeSurvey() {
       .filter(Boolean);
     axios
       .post(
-        `http://localhost:8080/api/survey-responses/${survey?.id}`,
+        `http://16.171.3.5:8080/api/survey-responses/${survey?.id}`,
         formattedAnswers,
         {
           headers: {
@@ -214,11 +214,11 @@ export default function TakeSurvey() {
           },
         }
       )
-      .then((response) => {
+      .then(() => {
         setHasUnsavedChanges(false);
         navigate("/dashboard");
       })
-      .catch((error) => {
+      .catch(() => {
         alert(t("takeSurvey.sendError"));
       });
   };

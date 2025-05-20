@@ -10,12 +10,16 @@ import RegisterRoot from "../pages/Auth.page/Register/ChooseAccount/RegisterRoot
 import CreateSurvey from "../pages/CreateSurvey.page/CreateSurvey.page";
 import TakeSurvey from "../pages/TakeSurvey.page/TakeSurvey.page";
 import FAQ from "../pages/FAQ/FAQ";
+import Analysis from "../pages/Analysis.page/Analysis.page";
+import Reviews from "../pages/Reviews.page/Reviews.page";
 
 const sidebarRoutes = [
   { path: "/dashboard", element: <Dashboard /> },
   { path: "/profile", element: <Settings /> },
   { path: "/survey/:id", element: <TakeSurvey /> },
   { path: "/create_survey", element: <CreateSurvey /> },
+  { path: "/feedback", element: <Reviews /> },
+  { path: "/analysis/:id", element: <Analysis /> },
 ];
 
 const sidebarWrappedRoutes = sidebarRoutes.map((route) => ({

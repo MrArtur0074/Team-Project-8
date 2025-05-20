@@ -1,0 +1,270 @@
+.header_analysis h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  background: var(--green-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+}
+
+.header_analysis h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--gray-color);
+}
+
+.analysis_block {
+  background-color: #1a1e20;
+  /* border: 1.2px solid #8d8d8d; */
+  padding: 3rem 5rem 5rem 5rem;
+  margin-bottom: 2rem;
+  border: 2px solid transparent;
+  border-image: linear-gradient(to right, #484848, #999, #484848) 1;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+
+.analysis_block * {
+  background: none !important;
+}
+
+.analysis_block div {
+  margin: 0 auto;
+}
+
+.container_analysis_results {
+  margin-top: 3rem;
+}
+
+.analysis_block h3 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding-bottom: 2rem;
+}
+
+.analysis_block .graph {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3rem;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .analysis_block .graph {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+
+.analysis_block h4 {
+  margin-bottom: 3rem;
+  font-weight: 400;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.problem_card {
+  background-color: #2b2b2b;
+  color: white;
+  padding: 1rem;
+  border-left: 4px solid #e03131;
+  border-radius: 8px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text_box {
+  border-left: 4px dashed #24744a;
+  padding: 2rem 1rem 2rem 2rem;
+  font-size: 1.1rem;
+  word-spacing: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text_box span {
+  padding-bottom: 20px !important;
+}
+
+.btn_create_report {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn_report {
+  background: linear-gradient(90deg, #237249, #35c66b);
+  transition: background-position 0.3s ease-in-out;
+  background-size: 200% 100%;
+}
+
+.btn_back {
+  border: 3px solid rgba(255, 255, 255, 0.596);
+}
+
+.btn_report,
+.btn_back {
+  text-decoration: none;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 2rem;
+  transition: all 0.3s;
+}
+
+.btn_back:hover {
+  background-color: #2b3034;
+}
+.btn_report:hover {
+  background-position: 100% 0;
+}
+
+.analysis_loader_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(20, 20, 20, 0.7);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.analysis_loader_text {
+  color: #35c66b;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.analysis_loader_text span {
+  animation: blink 1.2s infinite;
+}
+.analysis_loader_text span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.analysis_loader_text span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0%,
+  80%,
+  100% {
+    opacity: 0.2;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1330px) {
+  .analysis_block {
+    padding: 2rem 2rem 5rem 2rem;
+  }
+  .analysis_block > div {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 940px) {
+  .header_analysis h1 {
+    font-size: 1.5rem;
+  }
+  .header_analysis h3 {
+    font-size: 1.2rem;
+  }
+
+  .analysis_block h3 {
+    font-size: 1.3rem !important;
+  }
+
+  .analysis_block h4 {
+    font-size: 1.1rem !important;
+  }
+
+  .container_analysis {
+    margin-right: 1rem;
+  }
+}
+
+@media (max-width: 764px) {
+  .text_box {
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 740px) {
+  .container_analysis {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .btn_create_report {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn_back {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .btn_report {
+    width: 100%;
+  }
+}
+
+@media (max-width: 435px) {
+  .analysis_block {
+    padding: 2rem 1rem 5rem 1rem;
+  }
+}
+
+@media (max-width: 445px) {
+  .header_analysis h3 {
+    font-size: 0.8rem !important;
+  }
+  .header_analysis h1 {
+    font-size: 1.2rem !important;
+  }
+  .analysis_block .graph {
+    width: 80% !important;
+    margin: 0 auto;
+  }
+  .analysis_block h4 {
+    font-size: 0.8rem !important;
+  }
+
+  .analysis_block div {
+    width: 100%;
+  }
+
+  .recharts-wrapper {
+    width: 80% !important;
+  }
+}

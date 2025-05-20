@@ -6,10 +6,6 @@
   margin-bottom: 2.5rem;
 }
 
-strong {
-  /* color: #afafaf; */
-}
-
 .description {
   font-size: 1.3rem;
   color: #aaaaaa;
@@ -36,10 +32,6 @@ strong {
   background: none !important;
   margin: 0 !important;
   min-height: none !important;
-  /* display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin-top: 1rem; */
 }
 
 .radio_option {
@@ -125,4 +117,25 @@ strong {
 
 .input_error:focus {
   box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2) !important;
+}
+
+@media (max-width: 1000px) {
+  .radio_container {
+    padding: 0.5rem 1rem;
+  }
+
+  .radio_container span {
+    font-size: 0.7rem !important;
+  }
+
+  .custom_radio {
+    width: 0.6rem !important;
+    height: 0.6rem;
+    border: 1px solid #36d399;
+  }
+
+  .radio_container input:checked + .custom_radio::before {
+    width: 0.3rem !important;
+    height: 0.3rem;
+  }
 }

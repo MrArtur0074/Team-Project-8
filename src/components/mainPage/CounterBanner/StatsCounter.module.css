@@ -55,6 +55,7 @@ span,
 @media (max-width: 350px) {
   .text {
     width: 5rem;
+    font-size: 0.7rem !important;
   }
 
   .number {

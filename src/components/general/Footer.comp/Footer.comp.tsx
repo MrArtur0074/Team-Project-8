@@ -41,17 +41,11 @@ export default function Footer() {
               <NavLink
                 to="/"
                 style={{ textDecoration: "none" }}
-                onClick={() => scrollToSection("about_us")}
+                onClick={() => scrollToSection("how_use")}
               >
                 <div className={style.item}>{t("footer.aboutUs")}</div>
               </NavLink>
-              <NavLink
-                to="/"
-                style={{ textDecoration: "none" }}
-                onClick={() => scrollToSection("about_us")}
-              >
-                <div className={style.item}>{t("navigation.services")}</div>
-              </NavLink>
+
               <NavLink to="/faq" style={{ textDecoration: "none" }}>
                 <div className={style.item}>{t("navigation.faq")}</div>
               </NavLink>

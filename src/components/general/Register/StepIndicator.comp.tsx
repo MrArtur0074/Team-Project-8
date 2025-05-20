@@ -1,6 +1,9 @@
 import styleAuth from "../../../components/general/Auth/AuthHeader/AuthHeader.module.css";
+import { useTranslation } from "react-i18next";
 
 export default function StepIndicator() {
+  const { t } = useTranslation();
+
   return (
     <div className={styleAuth.progressContainer}>
       <div
@@ -9,7 +12,9 @@ export default function StepIndicator() {
         style={{ borderRadius: "18px 18px 0px 0" }}
       >
         <span className={styleAuth.stepNumber}>1</span>
-        <span className={styleAuth.stepText}>Заполнение данных</span>
+        <span className={styleAuth.stepText}>
+          {t("register.stepIndicator.dataEntry")}
+        </span>
       </div>
     </div>
   );

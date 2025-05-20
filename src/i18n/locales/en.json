@@ -35,6 +35,10 @@
     "activeUsers": "Active Users"
   },
   "reviews": {
+    "title": "Feedback",
+    "leaveFeedback": "Leave feedback",
+    "markAsRead": "Mark as read",
+    "deleteReview": "Delete review",
     "elon": {
       "name": "Elon Musk",
       "message": "I learned a lot about my employees and fired more than half."
@@ -82,7 +86,7 @@
     "notPassed": "Not passed",
     "passed": "Passed",
     "createSurvey": "Create survey",
-    "analytics": "General analytics",
+    "analytics": "Feedback ",
     "yourSurveys": "Your surveys",
     "noName": "No name",
     "notFound": "No results found for \"{{query}}\"",
@@ -93,7 +97,8 @@
   },
   "sidebar": {
     "surveys": "Surveys",
-    "profile": "Profile"
+    "profile": "Profile",
+    "feedback": "Feedback"
   },
   "questionCard": {
     "topic": "Survey topic",
@@ -106,15 +111,18 @@
     "myProfile": "My Profile",
     "username": "Username",
     "role": "Role",
-    "managerCode": "Manager code",
+    "managerCode": "Manager Code",
     "password": "Password",
-    "editData": "Edit data",
-    "logout": "Log out",
-    "newPassword": "New password",
-    "confirmPassword": "Confirm password",
+    "editData": "Edit Data",
+    "logout": "Log Out",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
     "passwordsDontMatch": "Passwords do not match",
     "save": "Save",
-    "close": "Close"
+    "close": "Close",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "feedback": "Feedback"
   },
   "nopage": {
     "notfound": "Page not found",
@@ -162,7 +170,8 @@
     "minLength": "Answer must be at least 3 characters",
     "unsupportedType": "Question type not supported",
     "submit": "Submit answers",
-    "leavePage": "Are you sure you want to leave this page? Your answers will not be saved."
+    "leavePage": "Are you sure you want to leave this page? Your answers will not be saved.",
+    "fixErrors": "Please fix the errors before submitting"
   },
   "faq": {
     "title": "Frequently Asked Questions",
@@ -182,5 +191,120 @@
     "a7": "We have a free and several paid tariffs — depending on team size and required functionality. Payment can be made by bank card, electronic wallets, or cryptocurrency. Details are in the 'Pricing' section.",
     "q8": "Can I cancel my subscription?",
     "a8": "Yes, you can cancel your subscription at any time through your personal account. After cancellation, you can use the service until the end of the paid period. Data and survey history are preserved if you decide to return later."
+  },
+  "chooseAccount": {
+    "title": "Registration",
+    "continue": "Continue",
+    "back": "Back",
+    "alreadyHaveAccount": "Already have an account?",
+    "step1": "Step 1",
+    "accountTypeSelection": "Account Type Selection",
+    "dataEntry": "Data Entry",
+    "emailConfirmation": "Email Confirmation",
+    "chooseAccountType": "Choose Account Type",
+    "accountTypeDescription": "Are you creating a user or administrator account? Choose the appropriate option to continue.",
+    "user": "User",
+    "administrator": "Administrator"
+  },
+  "register": {
+    "title": "Registration",
+    "next": "Next",
+    "previous": "Previous",
+    "alreadyHaveAccount": "Already have an account?",
+    "fillData": "Fill in registration data",
+    "loading": "Loading...",
+    "register": "Register",
+    "form": {
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "emailRequired": "Please enter your email",
+      "emailInvalid": "Invalid email format",
+      "username": "Username",
+      "usernamePlaceholder": "Enter username",
+      "usernameRequired": "Please enter username",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password",
+      "passwordRequired": "Please enter password",
+      "confirmPassword": "Confirm password",
+      "confirmPasswordPlaceholder": "Enter password again",
+      "confirmPasswordRequired": "Please confirm password",
+      "passwordsDontMatch": "Passwords do not match",
+      "usernameMinLength": "Username must be at least 3 characters long"
+    },
+    "roleSelector": {
+      "administrator": "Administrator",
+      "user": "User"
+    },
+    "stepIndicator": {
+      "dataEntry": "Data Entry"
+    }
+  },
+  "login": {
+    "title": "Login",
+    "username": "Username",
+    "usernamePlaceholder": "Enter your username",
+    "usernameRequired": "Please enter your username",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "passwordRequired": "Please enter your password",
+    "login": "Login",
+    "back": "Back",
+    "createAccount": "Create account",
+    "noAccount": "Don't have an account yet?",
+    "error": "Invalid credentials. Please try again.",
+    "enterAccount": "Log in to your account"
+  },
+  "mainPageHowUse": {
+    "title": "What is <1>Anonimo?</1>",
+    "desc": "Anonimo is an online platform where employees can anonymously take surveys created by their company. <br />Administrators ask important questions - from working conditions to workflows - and employees answer honestly, without revealing their identity. <br />The company receives aggregated results and uses them to make informed decisions and improve the work environment.",
+    "howItWork": "How does it work?",
+    "cards": [
+      {
+        "title": "Register",
+        "description": "Create an account quickly and easily - without using personal data."
+      },
+      {
+        "title": "Join a room",
+        "description": "Use the code provided by your administrator to join your company's room."
+      },
+      {
+        "title": "Answer anonymously",
+        "description": "Express your opinion freely - no names, no pressure, just honesty."
+      },
+      {
+        "title": "Improve the work environment",
+        "description": "Your answers will help the company become better for you and your team."
+      }
+    ]
+  },
+  "analysis": {
+    "title": "Survey Results",
+    "surveyTopic": "Survey Topic:",
+    "generalAnalytics": "General Analytics",
+    "answerRatio": "Overall Answer Ratio",
+    "employeeParticipation": "Employee Participation",
+    "problemQuestions": "Problem Questions",
+    "question": "Question:",
+    "problem": "Problem:",
+    "noProblems": "No problems detected 🎉",
+    "aiInsights": "Insights from Anonimo AI",
+    "aiAnalysis": "AI Analysis:",
+    "backToHome": "Back to Home",
+    "generatingPdf": "Generating PDF...",
+    "downloadPdf": "Download PDF Report"
+  },
+  "surveyReport": {
+    "title": "Survey Results",
+    "surveyTopic": "Survey Topic:",
+    "generalAnalytics": "General Analytics",
+    "totalResponses": "Total responses:",
+    "positiveResponses": "Positive responses:",
+    "negativeResponses": "Negative responses:",
+    "unansweredQuestions": "Unanswered questions:",
+    "problemQuestions": "Problem Questions",
+    "question": "Question:",
+    "problem": "Problem:",
+    "noProblems": "No problems detected 🎉",
+    "aiInsights": "Insights from Anonimo AI"
   }
 }
