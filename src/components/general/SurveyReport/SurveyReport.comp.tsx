@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Page,
   Text,
@@ -178,13 +177,20 @@ interface Problem {
 
 interface SurveyData {
   статистика: {
-    "общее количество ответов": number;
-    "количество положительных ответов": number;
-    "количество отрицательных ответов": number;
-    "количество неотвеченных вопросов": number;
+    общее_количество_ответов: number;
+    количество_положительных_ответов: number;
+    количество_отрицательных_ответов: number;
+    количество_неотвеченных_вопросов?: number;
+    метки_основных_проблем?: string[];
   };
-  проблемы: Problem[];
-  отчет: string;
+  проблемы?: Problem[];
+  отчет:
+    | {
+        название: string;
+        дата: string;
+        полный_отчет: string;
+      }
+    | string;
 }
 
 interface SurveyReportProps {
@@ -196,13 +202,16 @@ export function SurveyReport({ surveyTitle, data }: SurveyReportProps) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { t } = useTranslation();
   const today = getToday();
-  const pos = data?.статистика?.["количество положительных ответов"] ?? 0;
-  const neg = data?.статистика?.["количество отрицательных ответов"] ?? 0;
-  const totalResponses = data?.статистика?.["общее количество ответов"] ?? 0;
+  const pos = data?.статистика?.["количество_положительных_ответов"] ?? 0;
+  const neg = data?.статистика?.["количество_отрицательных_ответов"] ?? 0;
+  const totalResponses = data?.статистика?.["общее_количество_ответов"] ?? 0;
   const unanswered =
-    data?.статистика?.["количество неотвеченных вопросов"] ?? 0;
+    data?.статистика?.["количество_неотвеченных_вопросов"] ?? 0;
   const problems = Array.isArray(data?.проблемы) ? data.проблемы : [];
-  const reportText = data?.отчет ?? "";
+  const reportText =
+    typeof data?.отчет === "object" && data?.отчет !== null
+      ? data.отчет.полный_отчет
+      : (data?.отчет ?? "");
 
   return (
     <Document>

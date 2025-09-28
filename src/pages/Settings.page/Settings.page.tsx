@@ -16,7 +16,7 @@ export default function Settings() {
   const [user, setUser] = useContext(UserContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newUsername, setNewUsername] = useState(user.username);
-  const [newManagerCode, setNewManagerCode] = useState(user.managerCode);
+  // const [newManagerCode, setNewManagerCode] = useState(user.managerCode);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMatchError, setPasswordMatchError] = useState("");
@@ -82,7 +82,7 @@ export default function Settings() {
           email: user.email,
           password: newPassword || undefined,
           role: user.role,
-          managerCode: newManagerCode,
+          // managerCode: newManagerCode,
         },
         {
           headers: {

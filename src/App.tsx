@@ -4,7 +4,7 @@ import "@mantine/charts/styles.css";
 import { RouterProvider } from "react-router-dom";
 import { routers } from "./app/routers.tsx";
 import { createTheme, MantineProvider } from "@mantine/core";
-import React, { useEffect, useState, createContext, useContext } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import axios from "axios";
 import "./i18n/i18n.ts";
 

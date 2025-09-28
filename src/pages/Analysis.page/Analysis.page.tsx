@@ -2,7 +2,7 @@ import { NavLink, useParams } from "react-router-dom";
 import style from "./Analysis.page.module.css";
 import glob_style from "../Dashboard.page/Dashboard.page.module.css";
 import { PieChart, BarChart } from "@mantine/charts";
-import { Card, Text, Progress, Group, Badge } from "@mantine/core";
+import { Card, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { PDFDownloadLink } from "@react-pdf/renderer";
@@ -286,12 +286,7 @@ export default function Analysis() {
                 document={
                   <SurveyReport
                     surveyTitle={surveyTitleToShow}
-                    data={{
-                      ...mockData,
-                      отчет: report["полный_отчет"]
-                        ? String(report["полный_отчет"])
-                        : "",
-                    }}
+                    data={mockData}
                   />
                 }
                 fileName={`${surveyTitleToShow}.pdf`}

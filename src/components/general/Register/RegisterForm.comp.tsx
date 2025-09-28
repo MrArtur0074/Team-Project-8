@@ -93,11 +93,7 @@ export default function RegisterForm({
     // eslint-disable-next-line
   }, [email, password, confirmPassword, username, selectedRole]);
 
-  const handleFieldChange = (
-    field: string,
-    value: string,
-    setter: (val: string) => void
-  ) => {
+  const handleFieldChange = (value: string, setter: (val: string) => void) => {
     setter(value);
     // Ошибки обновятся при следующем isSubmitted
   };
@@ -113,9 +109,7 @@ export default function RegisterForm({
               placeholder={t("register.form.emailPlaceholder")}
               value={email}
               className={style.inputt}
-              onChange={(e) =>
-                handleFieldChange("email", e.target.value, setEmail)
-              }
+              onChange={(e) => handleFieldChange(e.target.value, setEmail)}
             />
             {isSubmitted && emailError && <p className="error">{emailError}</p>}
           </div>
@@ -128,9 +122,7 @@ export default function RegisterForm({
                 placeholder={t("register.form.usernamePlaceholder")}
                 value={username}
                 className={style.inputt}
-                onChange={(e) =>
-                  handleFieldChange("username", e.target.value, setUsername)
-                }
+                onChange={(e) => handleFieldChange(e.target.value, setUsername)}
               />
               {isSubmitted && usernameError && (
                 <p className="error">{usernameError}</p>
@@ -145,9 +137,7 @@ export default function RegisterForm({
               placeholder={t("register.form.passwordPlaceholder")}
               value={password}
               className={style.inputt}
-              onChange={(e) =>
-                handleFieldChange("password", e.target.value, setPassword)
-              }
+              onChange={(e) => handleFieldChange(e.target.value, setPassword)}
             />
             {isSubmitted && passwordError && (
               <p className="error">{passwordError}</p>
@@ -161,11 +151,7 @@ export default function RegisterForm({
               value={confirmPassword}
               className={style.inputt}
               onChange={(e) =>
-                handleFieldChange(
-                  "confirmPassword",
-                  e.target.value,
-                  setConfirmPassword
-                )
+                handleFieldChange(e.target.value, setConfirmPassword)
               }
             />
             {isSubmitted && confirmPasswordError && (
